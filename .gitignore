@@ -1,0 +1,61 @@
+## Build Folders
+
+bin/
+obj/
+out/
+
+## User-specific files
+
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+## Visual Studio specific
+
+.vs/
+
+## ASP.NET publish output
+
+wwwroot/
+
+## Logs
+
+*.log
+
+## IIS Express
+
+iisexpress/
+*.vspscc
+
+## Configuration
+
+appsettings.Development.json
+appsettings.Local.json
+
+## Sensitive files
+
+*.pfx
+
+## System files
+
+.DS_Store
+Thumbs.db
+
+## Rider / JetBrains
+
+.idea/
+*.sln.iml
+
+## NuGet
+
+packages/
+*.nupkg
+*.snupkg
+
+## Temp files
+
+*.tmp
+*.temp
+*.bak
+*.cache
