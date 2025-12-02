@@ -1,0 +1,56 @@
+﻿@model E_Banking_MVC.Models.Account
+@{
+    Layout = null;
+}
+<html>
+    <head>
+        <title>Update Account</title>
+        <style>
+            .text-danger{color:red}
+        </style>
+    </head>
+    <body>
+    <form method="post" action="/Account/Edit">
+        <input type="hidden" value="@Model.Id" name="account.Id" />
+        <table>
+            <tr>
+                <td>Account Holder</td>
+                <td><input type="text" name="account.Holder" value="@Model.Holder" /></td>
+                <td>@Html.ValidationMessageFor(m => m.Holder, "", new { @class = "text-danger" })</td>
+                <td><span></span></td>
+            </tr>
+            <tr>
+                <td>Account Number</td>
+                <td><input type="text" name="account.Number" value="@Model.Number" /></td>
+                <td>@Html.ValidationMessageFor(m => m.Number, "", new { @class = "text-danger" })</td>
+            </tr>
+            <tr>
+                <td>Online Banking</td>
+                @if (Model.HasOnlineBanking)
+                {
+                    <td><input type="checkbox" name="account.HasOnlineBanking" value="true" checked /></td>
+                }
+                else
+                {
+                    <td><input type="checkbox" name="account.HasOnlineBanking" value="true" /></td>
+                }
+            </tr>
+            <tr>
+                <td>Active</td>
+                @if (Model.IsActive)
+                {
+                    <td><input type="checkbox" name="account.IsActive" value="true" checked /></td>
+                }
+                else
+                {
+                    <td><input type="checkbox" name="account.IsActive" value="true" /></td>
+                }
+            </tr>
+            <tr>
+                <td colspan="2"> <input type="submit" value="Update Account" /></td>
+            </tr>
+        </table>
+    </form>
+
+    </body>
+</html>
