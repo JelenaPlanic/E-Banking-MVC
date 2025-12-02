@@ -1,0 +1,84 @@
+﻿@model E_Banking_MVC.ViewModels.AccountsSearchViewModel
+@{
+    Layout = null;
+}
+<html>
+    <head>
+        <title>Search Accounts</title>
+    </head>
+    <body>
+    <h1>List of Accounts</h1>
+    <table border="1">
+        <tr>
+            <th>Number of Account</th>
+            <th>Account Holder</th>
+            <th>Total</th>
+            <th>Online Banking</th>
+            <th>Active</th>
+        </tr>
+        @foreach (Account account in Model.Accounts.Keys)
+        {
+            @if (account.IsActive)
+            {
+                <tr style="background-color:forestgreen">
+                    <td>@account.Number</td>
+                    <td>@account.Holder</td>
+                    <td>@Model.Accounts[account]</td>
+                    <td>@(account.HasOnlineBanking ? "Yes" : "No")</td>
+                    <td>Yes</td>
+                </tr>
+            }
+            else
+            {
+                <tr style="background-color:red">
+                    <td>@account.Number</td>
+                    <td>@account.Holder</td>
+                    <td>@Model.Accounts[account]</td>
+                    <td>@(account.HasOnlineBanking ? "Yes" : "No")</td>
+                    <td>No</td>
+                </tr>
+            }
+        }
+    </table>
+    <br />
+
+    <h1>Search Accounts</h1>
+    <form method="post" action="/Account/Search"> 
+        <table>
+            <tr>
+                <td>Account Holder:</td>
+                <td><input type="text" name="AccountHolder" value="@Model.AccountHolder" /></td>
+            </tr>
+            <tr>
+                <td>Account Number:</td>
+                <td><input type="text" name="AccountNumber" value="@Model.AccountNumber" /></td>
+            </tr>
+            <tr>
+                <td>Amount from:</td>
+                <td><input type="number" name="AmountFrom" value="@Model.AmountFrom" /></td>
+            </tr>
+            <tr>
+                <td>Amount to:</td>
+                <td><input type="number" name="AmountTo" value="@Model.AmountTo" /></td>
+            </tr>
+            <tr>
+                <td>Activate?</td>
+                <td>
+                    <select name="Active">
+                        <option value="null">Off</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Search" /></td>
+            </tr>
+            
+        </table>
+    </form>
+    <br />
+    <a href="/Accounts">Back to Home Page</a>
+    </body>
+    
+</html>
