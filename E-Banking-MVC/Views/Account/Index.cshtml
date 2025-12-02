@@ -5,6 +5,7 @@
 <html>
     <head>
         <title>Accounts</title>
+        <script src="~/js/validation.js"></script>
         <style>
             .text-danger{
                 color:red;
@@ -58,18 +59,19 @@
         <a href="/Account/Search">Search Accounts</a>
         <br />
         <h1>Add new Account</h1>
-        <form method="post" action="/Account/Create">
+        <form method="post" action="/Account/Create" onsubmit="return validation()">
             <table>
                 <tr>
                    <td>Account Holder</td>
-                   <td><input type="text" name="account.Holder" value="@Model.Account.Holder"  /></td>
+                   <td><input type="text" name="account.Holder" value="@Model.Account.Holder" id="AccountHolderInput"  /></td>
                    <td>@Html.ValidationMessageFor(m => m.Account.Holder, "", new {@class = "text-danger"})</td>
-                   <td><span></span></td>
+                <td><span id="AccountHolderInputError" class="text-danger"></span></td>
                 </tr>
                 <tr>
                     <td>Account Number</td>
-                    <td><input type="text" name="account.Number" value="@Model.Account.Number" /></td>
+                    <td><input type="text" name="account.Number" value="@Model.Account.Number" id="AccountNumberInput" /></td>
                     <td>@Html.ValidationMessageFor(m => m.Account.Number,"", new{@class="text-danger"})</td>
+                    <td><span id="AccountNumberInputError"></span></td>
                 </tr>
                 <tr>
                     <td>Online Banking</td>

@@ -5,24 +5,26 @@
 <html>
     <head>
         <title>Update Account</title>
+        <script src="~/js/validation.js"></script>
         <style>
             .text-danger{color:red}
         </style>
     </head>
     <body>
-    <form method="post" action="/Account/Edit">
+    <form method="post" action="/Account/Edit" onsubmit="return validation()">
         <input type="hidden" value="@Model.Id" name="account.Id" />
         <table>
             <tr>
                 <td>Account Holder</td>
-                <td><input type="text" name="account.Holder" value="@Model.Holder" /></td>
+                <td><input type="text" name="account.Holder" value="@Model.Holder" id="AccountHolderInput" /></td>
                 <td>@Html.ValidationMessageFor(m => m.Holder, "", new { @class = "text-danger" })</td>
-                <td><span></span></td>
+                <td><span id="AccountHolderInputError" class="text-danger"></span></td>
             </tr>
             <tr>
                 <td>Account Number</td>
-                <td><input type="text" name="account.Number" value="@Model.Number" /></td>
+                <td><input type="text" name="account.Number" value="@Model.Number" id="AccountNumberInput" /></td>
                 <td>@Html.ValidationMessageFor(m => m.Number, "", new { @class = "text-danger" })</td>
+                <td><span id="AccountNumberInputError"></span></td>
             </tr>
             <tr>
                 <td>Online Banking</td>
