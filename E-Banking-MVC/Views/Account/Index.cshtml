@@ -32,7 +32,7 @@
                   <td>@Model.Accounts[account]</td>
                   <td>@(account.HasOnlineBanking? "Yes" : "No")</td>
                   <td>Yes</td>
-                  <td><a style="color:white">Open</a></td>
+                  <td><a style="color:white" href="/Payment/Index?accountId=@account.Id">Open</a></td>
                     <td><a style="color:white" href="/Account/Edit?AccountId=@account.Id">Edit</a></td>
                     <td><a style="color:white" href="/Account/Delete?AccountId=@account.Id">Delete</a></td>
                     <td><a style="color:white" href="/Account/Deactivate?AccountId=@account.Id">Deactivate</a></td>
