@@ -1,6 +1,8 @@
 ﻿using E_Banking_MVC.Repository;
 using E_Banking_MVC.Repository.Interfaces;
+using E_Banking_MVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using E_Banking_MVC.Models;
 
 namespace E_Banking_MVC.Controllers
 {
@@ -16,28 +18,40 @@ namespace E_Banking_MVC.Controllers
             this.AccountRepository = new AccountRepository(Configuration);
             this.PaymentRepository = new PaymentRepository(Configuration);
         }
-        public IActionResult Index()
+        public IActionResult Index(int accountId)
         {
-            return View();
-        }
-        public IActionResult Index()
-        {
-            return View();
-        }
-        public IActionResult Index()
-        {
-            return View();
-        }
+            PaymentPaymentsViewModel viewModel = new PaymentPaymentsViewModel();
+            viewModel.Payment = new Payment();
+            viewModel.Account = AccountRepository.GetOne(accountId);
+            viewModel.Payments = PaymentRepository.GetAll(accountId);
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+            decimal total = 0;
+            foreach(Payment payment in viewModel.Payments)
+            {
+                total += payment.Amount;
+            }
+            viewModel.Total = total;
 
-        public IActionResult Index()
-        {
-            return View();
+            return View(viewModel);
         }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
     }
 }

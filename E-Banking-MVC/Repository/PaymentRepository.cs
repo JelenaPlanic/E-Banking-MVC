@@ -51,6 +51,7 @@ namespace E_Banking_MVC.Repository
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
 
             adapter.Fill(ds, "Payment");
             dt = ds.Tables["Payment"];
@@ -95,6 +96,7 @@ namespace E_Banking_MVC.Repository
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
 
             adapter.Fill(ds, "Payment");
             dt = ds.Tables["Payment"];
@@ -131,6 +133,7 @@ namespace E_Banking_MVC.Repository
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
 
             adapter.Fill(ds, "Payment");
             dt = ds.Tables["Payment"];
@@ -166,6 +169,7 @@ namespace E_Banking_MVC.Repository
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
 
             adapter.Fill(ds, "Payment");
             dt = ds.Tables["Payment"];
