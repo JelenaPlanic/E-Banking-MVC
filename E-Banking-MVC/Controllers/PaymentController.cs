@@ -18,6 +18,8 @@ namespace E_Banking_MVC.Controllers
             this.AccountRepository = new AccountRepository(Configuration);
             this.PaymentRepository = new PaymentRepository(Configuration);
         }
+
+
         public IActionResult Index(int accountId)
         {
             PaymentPaymentsViewModel viewModel = new PaymentPaymentsViewModel();
@@ -86,5 +88,35 @@ namespace E_Banking_MVC.Controllers
             return RedirectToAction("Index", new { @accountId = accountId });
         }
 
+
+        public IActionResult OnlyInFlow(int accountId)
+        {
+            PaymentPaymentsViewModel vm = new PaymentPaymentsViewModel();
+            vm.Account = AccountRepository.GetOne(accountId);
+            vm.Payment = new Payment();
+            vm.Payments = PaymentRepository.GetPositiveOrNegative(accountId, true);
+            decimal total = 0;
+            foreach(Payment p in vm.Payments)
+            {
+                total += p.Amount;
+            }
+            vm.Total = total;
+            return View("Index", vm);
+        }
+
+        public IActionResult OnlyDeposit(int accountId)
+        {
+            PaymentPaymentsViewModel vm = new PaymentPaymentsViewModel();
+            vm.Account = AccountRepository.GetOne(accountId);
+            vm.Payment = new Payment();
+            vm.Payments = PaymentRepository.GetPositiveOrNegative(accountId, false);
+            decimal total = 0;
+            foreach (Payment p in vm.Payments)
+            {
+                total += p.Amount;
+            }
+            vm.Total = total;
+            return View("Index", vm);
+        }
     }
 }
