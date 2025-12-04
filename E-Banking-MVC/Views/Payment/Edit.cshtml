@@ -1,14 +1,81 @@
-﻿@model E_Banking_MVC.ViewModels.PaymentPaymentsViewModel
+﻿@model E_Banking_MVC.ViewModels.PaymentAccountsViewModel
 @{
     Layout = null;
 }
 <html>
 <head>
     <title>Payments</title>
-    <style></style>
-    <script src=""></script>
+    <style>
+        .text-danger{color:red}
+    </style>
+    <script src="/js/validationPaymentInput.js"></script>
 </head>
 <body>
+    <h2>Edit Transaction</h2>
+    <form action="/Payment/Edit" method="post" onsubmit="return validationPaymentInput()">
+        <input type="hidden" value="@Model.Payment.Id" name="Payment.Id" />
+        <table>
+            <tr>
+                <td>Transant</td>
+                <td><input name="Payment.PayerName" type="text" value="@Model.Payment.PayerName" id="transantInput" /></td>
+                <td>@Html.ValidationMessageFor(p => p.Payment.PayerName, "", new { @class = "text-danger" })</td>
+                <td><span id="transantInputError" class="text-danger"></span></td>
 
+            </tr>
+            <tr>
+                <td>Payment Amount</td>
+                <td><input name="Payment.Amount" type="number" value="@Model.Payment.Amount" id="amountInput" /></td>
+                <td>@Html.ValidationMessageFor(p => p.Payment.Amount, "", new { @class = "text-danger" })</td>
+                <td><span id="amountInputError" class="text-danger"></span></td>
+            </tr>
+            <tr>
+                <td>Transaction Date</td>
+                <td><input name="Payment.TransactionDate" type="date" placeholder="dd.mm.yyyy" min="01.01.2025." max="01.01.2030." value="@Model.Payment.TransactionDate" id="transactionDateInput" /></td>
+                <td>@Html.ValidationMessageFor(p => p.Payment.TransactionDate, "", new { @class = "text-danger" })</td>
+                <td><span id="transactionDateInputError" class="text-danger"></span></td>
+            </tr>
+            <tr>
+                <td>Payment Purpose</td>
+                <td><input name="Payment.Purpose" type="text" value="@Model.Payment.Purpose" id="purposeInput" /></td>
+                <td>@Html.ValidationMessageFor(p => p.Payment.Purpose, "", new { @class = "text-danger" })</td>
+                <td><span id="purposeInputError" class="text-danger"></span></td>
+            </tr>
+            <tr>
+                <td>Urgent</td>
+                @if (Model.Payment.IsUrgent)
+                {
+                    <td><input name="Payment.IsUrgent" type="checkbox" checked value="true" /></td>
+                }
+                else
+                {
+                    <td><input name="Payment.IsUrgent" type="checkbox" value="true" /></td>
+                }
+            </tr>
+            <tr>
+                <td>Accounts</td>
+                <td>
+                    <select name="Payment.AccountId">
+                        @foreach (Account account in Model.Accounts)
+                        {
+                            @if (account.Id == Model.Payment.AccountId)
+                            {
+                                <option value="@account.Id" selected>@account.Number</option>
+                            }
+                            else
+                            {
+                                <option value="@account.Id">@account.Number</option>
+                            }
+                        }
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Update Transaction" /></td>
+            </tr>
+        </table>
+    </form>
+    <br />
+    <a href="/Account/Index">Back to Home Page</a>
 </body>
 </html>

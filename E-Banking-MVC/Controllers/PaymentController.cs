@@ -56,20 +56,35 @@ namespace E_Banking_MVC.Controllers
             PaymentRepository.Create(Payment);
             return RedirectToAction("Index",new {@accountId = Payment.AccountId} );
         }
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        public IActionResult Edit(int paymentId )
+        {
+            PaymentAccountsViewModel vm = new PaymentAccountsViewModel();
+            vm.Payment = PaymentRepository.GetOne(paymentId);
+            vm.Accounts = AccountRepository.GetAll();
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Payment Payment)
+        {
+            if (!ModelState.IsValid)
+            {
+                PaymentAccountsViewModel vm = new PaymentAccountsViewModel();
+                vm.Payment = Payment;
+                vm.Accounts = AccountRepository.GetAll();
+                return View("Index", vm);
+            }
+            PaymentRepository.Update(Payment);
+            return RedirectToAction("Index", new {@accountId = Payment.AccountId});
+        }
+
+        public IActionResult Delete(int paymentId, int accountId)
+        {
+            PaymentRepository.Delete(paymentId);
+            return RedirectToAction("Index", new { @accountId = accountId });
+        }
 
     }
 }

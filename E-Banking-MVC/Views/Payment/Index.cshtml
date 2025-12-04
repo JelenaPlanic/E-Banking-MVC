@@ -24,31 +24,35 @@
             <th>Transaction Date</th>
             <th>Payment Purpose</th>
             <th>Urgent</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
 
         @foreach(Payment payment in Model.Payments)
         {
             @if (payment.IsUrgent)
             {
-                <tr style="background-color:green"></tr>
+                <tr style="background-color: indianred">
                 <td>@payment.PayerName</td>
                 <td>@payment.Amount</td>
                 <td>@payment.TransactionDate.ToString("dd.MM.yyyyy")</td>
                 <td>@payment.Purpose</td>
                 <td>Yes</td>
-                <td><a href=""  style="color:white">Edit</a></td>
-                <td><a href="" style="color:white">Delete</a></td>
+                <td><a href="/Payment/Edit?paymentId=@payment.Id"  style="color:white">Edit</a></td>
+                <td><a href="/Payment/Delete?paymentId=@payment.Id&accountId=@Model.Account.Id" style="color:white">Delete</a></td>
+                </tr>
             }
             else
             {
-                <tr style="background-color:red"></tr>
+                <tr style="background-color: forestgreen">
                 <td>@payment.PayerName</td>
                 <td>@payment.Amount</td>
                 <td>@payment.TransactionDate.ToString("dd.MM.yyyyy")</td>
                 <td>@payment.Purpose</td>
                 <td>No</td>
-                <td><a href="" style="color:white">Edit</a></td>
-                <td><a href="" style="color:white">Delete</a></td>
+                <td><a href="/Payment/Edit?paymentId=@payment.Id&accountId=@Model.Account.Id" style="color:white">Edit</a></td>
+                 <td><a href="/Payment/Delete?paymentId=@payment.Id&accountId=@Model.Account.Id" style="color:white">Delete</a></td>
+                </tr>
             }
         }
     </table>
