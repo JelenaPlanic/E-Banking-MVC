@@ -1,14 +1,77 @@
-﻿@model E_Banking_MVC.ViewModels.PaymentPaymentsViewModel
+﻿@model E_Banking_MVC.ViewModels.PaymentsSearchViewModel
 @{
     Layout = null;
 }
 <html>
 <head>
     <title>Payments</title>
-    <style></style>
-    <script src=""></script>
 </head>
 <body>
-
+ <h1>Working with Account: @Model.Account.Number</h1>
+ <h2>Account Holder: @Model.Account.Holder</h2>
+ <h3>List of all transactions</h3>
+ <table border="1">
+     <tr>
+         <th>Transant</th>
+         <th>Amount</th>
+         <th>Transaction Date</th>
+         <th>Purpose</th>
+         <th>Urgent - Instant</th>
+     </tr>
+        @foreach(Payment payment in Model.Payments)
+        {
+            @if (payment.IsUrgent)
+            {
+                <tr style="background-color:indianred">
+                 <td>@payment.PayerName</td>
+                 <td>@payment.Amount</td>
+                 <td>@payment.TransactionDate.ToString("dd.MM.yyyy")</td>
+                 <td>@payment.Purpose</td>              
+                 <td>Yes</td>
+                </tr>
+            }
+            else
+            {
+                <tr style="background-color:forestgreen">
+                <td>@payment.PayerName</td>
+                <td>@payment.Amount</td>
+                <td>@payment.TransactionDate.ToString("dd.MM.yyyy")</td>
+                <td>@payment.Purpose</td>
+                <td>No</td>
+                </tr>        
+            }
+        }
+    </table>
+    <h2>Search payment slips for a specific account</h2>
+    <form method="post" action="/Payment/Search">
+        <input type="hidden" name="AccountId" value="@Model.Account.Id" />
+        <table>
+            <tr>
+                <td>Transant:</td>
+                <td><input type="text" name="Transant" value="@Model.Transant" /></td>
+            </tr>
+            <tr>
+                <td>Amount From:</td>
+                <td><input type="number" name="AmountFrom" value="@Model.AmountFrom" /></td>
+            </tr>
+            <tr>
+                <td>Amount To:</td>
+                <td><input type="number" name="AmountTo" value="@Model.AmountTo" /></td>
+            </tr>
+            <tr>
+                <td>Date From:</td>
+                <td><input type="date" name="DateFrom" value="@Model.DateFrom" min="01.01.2025." max="01.01.2030." placeholder="dd.mm.yyyy." /></td>
+            </tr>
+            <tr>
+                <td>Date To:</td>
+                <td><input type="date" name="DateTo" value="@Model.DateTo" min="01.01.2025." max="01.01.2030." placeholder="dd.mm.yyyy." /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Search" /></td>
+            </tr>
+        </table>
+    </form>
+    <a href="/Payment/Index?accountId=@Model.Account.Id">Back</a>
 </body>
+
 </html>

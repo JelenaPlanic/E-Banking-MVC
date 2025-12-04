@@ -118,5 +118,28 @@ namespace E_Banking_MVC.Controllers
             vm.Total = total;
             return View("Index", vm);
         }
+
+        [HttpGet]
+        public IActionResult Search(int accountId)
+        {
+            PaymentsSearchViewModel vm = new PaymentsSearchViewModel();
+            vm.Account = AccountRepository.GetOne(accountId);
+            vm.Payments = PaymentRepository.GetAll(accountId);
+            return View(vm);
+        }
+        [HttpPost] 
+        public IActionResult Search(int AccountId, string Transant, decimal? AmountFrom, decimal? AmountTo, 
+                                    DateTime? DateFrom, DateTime? DateTo)
+        {
+            PaymentsSearchViewModel vm = new PaymentsSearchViewModel();
+            vm.Account = AccountRepository.GetOne(AccountId);
+            vm.Payments = PaymentRepository.Search(AccountId, Transant, AmountFrom, AmountTo, DateFrom, DateTo);
+            vm.Transant = Transant;
+            vm.AmountFrom = AmountFrom;
+            vm.AmountTo = AmountTo;
+            vm.DateFrom = DateFrom;
+            vm.DateTo = DateTo;
+            return View(vm);
+        }
     }
 }
