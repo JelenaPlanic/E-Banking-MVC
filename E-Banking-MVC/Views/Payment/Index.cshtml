@@ -59,7 +59,7 @@
     <hr />
 
     <h1>Execute a new transaction</h1>
-    <form action="/" method="post" onsubmit="return validationPaymentInput()">
+    <form action="/Payment/Create" method="post" onsubmit="return validationPaymentInput()">
         <input type="hidden" value="@Model.Account.Id" name="Payment.AccountId" />
         <table>
             <tr>

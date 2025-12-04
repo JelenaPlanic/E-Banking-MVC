@@ -34,10 +34,28 @@ namespace E_Banking_MVC.Controllers
 
             return View(viewModel);
         }
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+
+        [HttpPost]
+        public IActionResult Create(Payment Payment)
+        {
+            if (!ModelState.IsValid)
+            {
+                PaymentPaymentsViewModel vm = new PaymentPaymentsViewModel();
+                vm.Payment = Payment;
+                vm.Account = AccountRepository.GetOne(vm.Payment.AccountId);
+                vm.Payments = PaymentRepository.GetAll(vm.Payment.AccountId);
+                decimal total = 0;
+                foreach(Payment payment in vm.Payments)
+                {
+                    total += payment.Amount;
+                }
+                vm.Total = total;
+
+                return View("Index", vm);
+            }
+            PaymentRepository.Create(Payment);
+            return RedirectToAction("Index",new {@accountId = Payment.AccountId} );
+        }
         //public IActionResult Index()
         //{
         //    return View();

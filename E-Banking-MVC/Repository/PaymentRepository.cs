@@ -194,7 +194,7 @@ namespace E_Banking_MVC.Repository
         public void Create(Payment payment)
         {
             string query = "insert into Payment (AccountId,Amount,TransactionDate,Purpose,PayerName,IsUrgent) " +
-                            "set values (@accountId,@amount, @date,@purpose,@payerName,@isUrgent)";
+                            "values (@accountId,@amount, @date,@purpose,@payerName,@isUrgent)";
 
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             SqlConnection conn = new SqlConnection(connectionString);
